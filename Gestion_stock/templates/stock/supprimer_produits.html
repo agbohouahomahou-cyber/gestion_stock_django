@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Supprimer produit{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card border-danger">
+      <div class="card-body">
+
+        <h4 class="card-title text-danger">
+          <i class="mdi mdi-alert"></i> Confirmation de suppression
+        </h4>
+
+        <p>
+          Voulez-vous vraiment supprimer le produit :
+          <strong>{{ produits.nom }}</strong> ?
+        </p>
+
+        <form method="post">
+          {% csrf_token %}
+
+          <button type="submit" class="btn btn-danger">
+            Oui, supprimer
+          </button>
+
+          <a href="{% url 'produits' %}" class="btn btn-light">
+            Annuler
+          </a>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

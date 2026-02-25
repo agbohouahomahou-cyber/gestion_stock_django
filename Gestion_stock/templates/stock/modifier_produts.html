@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Modifier produit{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-lg-7 grid-margin stretch-card">
+
+    <div class="card shadow-sm">
+
+      <!-- HEADER -->
+      <div class="card-header bg-warning text-white">
+        <h4 class="mb-0">
+          <i class="mdi mdi-pencil"></i>
+          Modifier le produit
+        </h4>
+      </div>
+
+      <!-- BODY -->
+      <div class="card-body">
+
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="row">
+
+            <!-- NOM -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>
+                  <i class="mdi mdi-tag-outline"></i> Nom du produit
+                </label>
+                {{ form.nom }}
+              </div>
+            </div>
+
+            <!-- CATÉGORIE -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>
+                  <i class="mdi mdi-shape-outline"></i> Catégorie
+                </label>
+                {{ form.categories }}
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <!-- QUANTITÉ -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>
+                  <i class="mdi mdi-cube-outline"></i> Quantité
+                </label>
+                {{ form.quantite }}
+              </div>
+            </div>
+
+            <!-- PRIX -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>
+                  <i class="mdi mdi-cash"></i> Prix (FCFA)
+                </label>
+                {{ form.prix }}
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+
+          <!-- ACTIONS -->
+          <div class="d-flex justify-content-between">
+            <a href="{% url 'list_produit' %}" class="btn btn-light">
+              <i class="mdi mdi-arrow-left"></i> Annuler
+            </a>
+
+            <button type="submit" class="btn btn-warning">
+              <i class="mdi mdi-content-save"></i> Enregistrer
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

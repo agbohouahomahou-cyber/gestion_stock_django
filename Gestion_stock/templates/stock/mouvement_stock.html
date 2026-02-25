@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Ajouter un mouvement{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+          <i class="mdi mdi-swap-horizontal"></i>
+          Ajouter un mouvement
+        </h4>
+      </div>
+
+      <div class="card-body">
+
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label>Produit</label>
+            {{ form.produits }}
+          </div>
+
+          <div class="form-group">
+            <label>Type de mouvement</label>
+            {{ form.movement_type }}
+          </div>
+
+          <div class="form-group">
+            <label>Quantité</label>
+            {{ form.quantite }}
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between">
+            <a href="{% url 'mouvement_list' %}" class="btn btn-light">
+              Annuler
+            </a>
+
+            <button type="submit" class="btn btn-primary">
+              <i class="mdi mdi-content-save"></i> Enregistrer
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Détails du produit{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-lg-8 grid-margin stretch-card">
+
+    <div class="card shadow-sm">
+      
+      <!-- HEADER -->
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">
+          <i class="mdi mdi-package-variant"></i>
+          Fiche produit
+        </h4>
+        <span class="badge badge-light text-dark">
+          ID #{{ produits.id }}
+        </span>
+      </div>
+
+      <!-- BODY -->
+      <div class="card-body">
+
+        <!-- INFOS -->
+        <div class="row mb-4">
+
+          <div class="col-md-6">
+            <p class="text-muted mb-1">
+              <i class="mdi mdi-tag-outline"></i> Nom
+            </p>
+            <h5>{{ produits.nom }}</h5>
+          </div>
+
+          <div class="col-md-6">
+            <p class="text-muted mb-1">
+              <i class="mdi mdi-shape-outline"></i> Catégorie
+            </p>
+            <h5>{{ produits.categories }}</h5>
+          </div>
+
+        </div>
+
+        <div class="row mb-4">
+
+          <div class="col-md-6">
+            <p class="text-muted mb-1">
+              <i class="mdi mdi-cube-outline"></i> Quantité en stock
+            </p>
+
+            {% if produits.quantite <= 5 %}
+              <span class="badge badge-danger p-2">
+                {{ produits.quantite }} (Stock faible)
+              </span>
+            {% else %}
+              <span class="badge badge-success p-2">
+                {{ produits.quantite }} (Stock normal)
+              </span>
+            {% endif %}
+          </div>
+
+          <div class="col-md-6">
+            <p class="text-muted mb-1">
+              <i class="mdi mdi-cash"></i> Prix unitaire
+            </p>
+            <h5>{{ produits.prix }} FCFA</h5>
+          </div>
+
+        </div>
+
+        <hr>
+
+        <!-- ACTIONS -->
+        <div class="d-flex justify-content-between">
+
+          <a href="{% url 'list_produit' %}" class="btn btn-light">
+            <i class="mdi mdi-arrow-left"></i> Retour
+          </a>
+
+          <div>
+            <a href="{% url 'modifier_produts' produits.id %}" class="btn btn-warning">
+              <i class="mdi mdi-pencil"></i> Modifier
+            </a>
+
+            <a href="{% url 'supprimer_produits' produits.id %}" class="btn btn-danger">
+              <i class="mdi mdi-delete"></i> Supprimer
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

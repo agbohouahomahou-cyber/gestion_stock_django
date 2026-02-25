@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}Liste des produits{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-12 grid-margin">
+
+    <div class="card">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="card-title mb-0">Liste des produits</h4>
+
+          <a href="{% url 'ajout_produits' %}" class="btn btn-success btn-sm">
+            <i class="mdi mdi-plus"></i> Nouveau produit
+          </a>
+        </div>
+
+        <!-- FILTRE PRO -->
+        <form method="get" class="mb-4">
+          <div class="row">
+
+            <div class="col-md-4">
+              <label>Categories</label>
+              {{ produitsfilters.form.categories }}
+            </div>
+
+            <div class="col-md-4">
+              <label>Quantite</label>
+              {{ produitsfilters.form.quantite }}
+            </div>
+
+            <div class="col-md-2">
+              <label>Prix</label>
+              {{ produitsfilters.form.prix }}
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="mdi mdi-filter"></i> Filtrer
+              </button>
+            </div>
+
+          </div>
+        </form>
+
+        <!-- TABLE -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th>Quantité</th>
+                <th>État</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for produit in produits %}
+              <tr>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.categories }}</td>
+                <td>{{ produit.quantite }}</td>
+
+                <!-- BADGE STOCK -->
+                <td>
+                  {% if produit.quantite <= 5 %}
+                    <span class="badge badge-danger">Stock faible</span>
+                  {% else %}
+                    <span class="badge badge-success">Stock normal</span>
+                  {% endif %}
+                </td>
+
+                <!-- ACTIONS -->
+                <td class="text-right">
+                  <a href="{% url 'detail_produits' produit.id %}"
+                     class="btn btn-sm btn-info">
+                    <i class="mdi mdi-eye"></i>
+                  </a>
+
+                  <a href="{% url 'modifier_produts' produit.id %}"
+                     class="btn btn-sm btn-warning">
+                    <i class="mdi mdi-pencil"></i>
+                  </a>
+
+                  <a href="{% url 'supprimer_produits' produit.id %}"
+                     class="btn btn-sm btn-danger"
+                     onclick="return confirm('Confirmer la suppression ?');">
+                    <i class="mdi mdi-delete"></i>
+                  </a>
+                </td>
+              </tr>
+
+              {% empty %}
+              <tr>
+                <td colspan="5" class="text-center text-muted">
+                  Aucun produit trouvé
+                </td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="mt-3 d-flex justify-content-between align-items-center">
+
+          {% if produits.has_previous %}
+            <a class="btn btn-outline-secondary btn-sm"
+               href="?page={{ produits.previous_page_number }}">
+              Précédent
+            </a>
+          {% else %}
+            <span></span>
+          {% endif %}
+
+          <span>
+            Page {{ produits.number }} / {{ produits.paginator.num_pages }}
+          </span>
+
+          {% if produits.has_next %}
+            <a class="btn btn-outline-secondary btn-sm"
+               href="?page={{ produits.next_page_number }}">
+              Suivant
+            </a>
+          {% else %}
+            <span></span>
+          {% endif %}
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
