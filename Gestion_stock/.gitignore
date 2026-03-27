@@ -9,7 +9,6 @@ db.sqlite3
 .env/
 
 # Django
-staticfiles/
 media/
 
 # Environment variables
