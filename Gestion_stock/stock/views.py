@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from .filters import ProduitFiltre
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+
 # CRUD/ Gestion des produits 
 @login_required
 def ajout_produits(request):
@@ -35,6 +36,7 @@ def supprimer_produits(request,id_produit):
     produits=get_object_or_404(Produits,id =id_produit)
     if request.method =='POST':
         produits.delete()
+        return redirect('list_produit')
     return render(request, 'stock/supprimer_produits.html',{'produits':produits} )
 
 def list_produit(request):
@@ -62,6 +64,7 @@ def detail_produits(request,id_produit):
 
 
 # Gestion des movement du stock
+
 @login_required
 def mouvement_stock(request):
     if request.method =='POST':
